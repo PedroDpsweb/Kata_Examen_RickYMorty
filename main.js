@@ -12,41 +12,25 @@
  console.log(pjproto("Morty"));
  console.log(pjproto("Jerry"));
 
+ /////////////////////////////////////////////////////////////
 /**
  * Crea el objeto Rick
  */
 
-var  protoRick= {
-     id:"C-137",
-     ondas:"altas",
-     habla: "Es Rick-dículo!"
- };
-
- var  protoRick= {
-    id:"C-137",
-    ondas:"altas",
-    habla: "Es Rick-dículo!"
-};
-
-
-
-
+const  protoRick= pjproto("Rick");
 
 console.assert(protoRick);
 console.assert(protoRick.id == "C-137");
 console.assert(protoRick.ondas == "altas");
 console.assert(protoRick.habla == "Es Rick-dículo!");
 
+ /////////////////////////////////////////////////////////////
+
 /**
  * Crea el objeto Morty
  */
 
-var  protoMorty= {
-     id:"earthMorty",
-     ondas:"bajas",
-     partner: protoRick,
-     habla: "Oohh man!"
- };
+var  protoMorty= pjproto("Morty");
 
 console.assert(protoMorty);
 console.assert(protoMorty.id == "earthMorty");
