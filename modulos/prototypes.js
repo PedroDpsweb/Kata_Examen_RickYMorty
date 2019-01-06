@@ -6,8 +6,13 @@ module.exports = function getPersonaje(personaje) {
       let numero = 137;
       let mundo = 'C-';
       if (!this.Rick) {
-        Rick = { id: mundo+numero, ondas: 'altas', habla: 'Es Rick-dículo!' };
+        Rick = { id: mundo + numero, ondas: 'altas', habla: 'Es Rick-dículo!' };
       }
+
+      //funcion para que Rick dispare
+      Rick.disparar = function(arma, destino) {
+        arma.crearPortal(destino);
+      };
       return this.Rick;
     })(),
 
