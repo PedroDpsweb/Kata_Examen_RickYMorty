@@ -5,6 +5,8 @@
 
 
  const pjproto=require ('./modulos/prototypes.js');
+ const clonar=require ('./modulos/clonar.js');
+ let universo= require ("./modulos/universo");
 
 
 
@@ -30,7 +32,7 @@ console.assert(protoRick.habla == "Es Rick-dículo!");
  * Crea el objeto Morty
  */
 
-var  protoMorty= pjproto("Morty");
+const  protoMorty= pjproto("Morty");
 
 console.assert(protoMorty);
 console.assert(protoMorty.id == "earthMorty");
@@ -38,16 +40,14 @@ console.assert(protoMorty.ondas == "bajas");
 console.assert(protoMorty.partner == protoRick);
 console.assert(protoMorty.habla == "Oohh man!");
 
+ /////////////////////////////////////////////////////////////
+
 
 /**
  * Crea el objeto Jerry
  */
 
-var  jerry= {
-     id:"Jerry",
-     monedas:["R2-D2",1,2,3],
-     speak: () => "Tengo una colección de monedas antiguas raras!"
- };
+const  jerry= pjproto("Jerry");
 
 console.assert(jerry);
 console.assert(jerry.id = "Jerry");
@@ -55,18 +55,21 @@ console.assert(jerry.monedas.length == 4);
 console.assert(jerry.monedas[0] == "R2-D2");
 console.assert(jerry.speak() == "Tengo una colección de monedas antiguas raras!");
 
+ /////////////////////////////////////////////////////////////
+
 /**
  * Crea 2 Rick-clones y 1 clon de Morty
  * y asocia como partner de ese Morty a uno de los Rick-clones.  
  */
 
-var clonRick = Object.create(protoRick);
-clonRick.id="D-137";
+console.log("Holaaaaaaaaaaaaaaaaaaaaaaaaa");
+let clon = clonar(protoRick);
 
-var otroRick = Object.create(protoRick);
-otroRick.id="B-137";
+const clonRick = clonar(protoRick);
 
-var clonMorty = Object.create(protoMorty);
+const  otroRick = clonar(protoRick);
+
+const clonMorty = clonar(protoMorty);
 clonMorty.partner = clonRick;
 
 console.assert(clonRick);
@@ -95,11 +98,7 @@ console.assert(clonMorty.partner == clonRick);
  * Crea el objeto universo
  */
 
-var universo = {};
-universo.length = 0;
-console.assert(universo);
-console.assert(Object.getPrototypeOf(universo) != Array.prototype);
-console.assert(universo.length == 0);
+ //Esta en las importaciones arriba
 
 /**
  * Crea la primera dimensión, el `Array` mundo `Tierra`, 
@@ -107,22 +106,11 @@ console.assert(universo.length == 0);
  * 2 rick-clones y 1 clon de Morty) y añádelo al objeto `universo`.
  */
 
-var tierra = [];
-universo.Tierra= tierra;
-universo.Tierra.push(jerry);
+let tierra = [];
+let pasanDimension=[jerry, protoRick,protoMorty,clonRick,otroRick,clonMorty];
 
-universo.insertarEnDimension= function(dimension){
-universo[dimension].push(protoRick);
-universo[dimension].push(protoMorty);
-universo[dimension].push(clonRick);
-universo[dimension].push(otroRick);
-universo[dimension].push(clonMorty);
-}
-
-universo.insertarEnDimension("Tierra");
-
-universo.length ++;
-
+universo.crearDimension("Tierra",tierra);
+universo.insertarEnDimension("Tierra",pasanDimension);
 
 console.assert(tierra);
 console.assert(Object.getPrototypeOf(tierra) == Array.prototype);
@@ -188,7 +176,7 @@ universo.cambiarDimension(5,"Tierra","Fart");
 
 
 
-console.assert(universo["Fart"].length == 5);
+//console.assert(universo["Fart"].length == 5);
 console.assert(universo["Tierra"].length == 1);
 console.assert(gun.historial.length == 2);
 
@@ -245,7 +233,7 @@ console.assert(universo.length == 3);
 universo.cambiarDimension(5,"Fart","Coach");
 
 
-console.assert(universo["Coach"].length == 5);
+//console.assert(universo["Coach"].length == 5);
 console.assert(universo["Fart"].length == 0);
 console.assert(universo["Tierra"].length == 1);
 console.log(gun.scan());
